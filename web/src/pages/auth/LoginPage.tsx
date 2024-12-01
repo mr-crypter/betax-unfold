@@ -4,10 +4,9 @@ import { LoginForm } from '../../components/LoginForm';
 interface LoginPageProps {
   setAuthToken: (token: string | null) => void;
   authToken: string | null;
-  handleLogout: () => void;
 }
 
-export const LoginPage: React.FC<LoginPageProps> = ({ setAuthToken, authToken, handleLogout }) => {
+export const LoginPage: React.FC<LoginPageProps> = ({ setAuthToken, authToken }) => {
   return (
     <main className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="w-full lg:w-1/2 p-6 sm:p-8 lg:p-12 bg-white rounded-lg shadow-md">
@@ -15,7 +14,6 @@ export const LoginPage: React.FC<LoginPageProps> = ({ setAuthToken, authToken, h
         <LoginForm
           setAuthToken={setAuthToken}
           authToken={authToken}
-          handleLogout={handleLogout}
         />
       </div>
     </main>

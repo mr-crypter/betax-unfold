@@ -9,10 +9,9 @@ interface AuthResponse {
 interface LoginFormProps {
   setAuthToken: (token: string | null) => void;
   authToken: string | null;
-  handleLogout: () => void;
 }
 
-export const LoginForm: React.FC<LoginFormProps> = ({ setAuthToken, authToken, handleLogout }) => {
+export const LoginForm: React.FC<LoginFormProps> = ({ setAuthToken, authToken }) => {
   const okto = useOkto();
 
   const handleGoogleLogin = async ({ credential }: CredentialResponse) => {
@@ -24,7 +23,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ setAuthToken, authToken, h
           console.error("Authentication error:", error);
           return;
         }
-        
+
         if (authResponse) {
           setAuthToken(authResponse.auth_token);
           console.log("Authenticated successfully, auth token:", authResponse.auth_token);
@@ -53,15 +52,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ setAuthToken, authToken, h
             </div>
           </div>
         ) : (
-          <div className="flex flex-col items-center space-y-4">
-            <p className="text-green-600">Successfully logged in!</p>
-            <button
-              onClick={handleLogout}
-              className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors"
-            >
-              Logout
-            </button>
-          </div>
+          null
         )}
       </div>
     </div>
