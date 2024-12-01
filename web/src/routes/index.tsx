@@ -1,39 +1,25 @@
-import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import { AuthLayout } from '../layouts/AuthLayout';
-import { DashboardLayout } from '../layouts/DashboardLayout';
+import React, { useState } from 'react';
+import { Routes, Route, Navigate, BrowserRouter } from 'react-router-dom';
 import { LoginPage } from '../pages/auth/LoginPage';
-import { RegisterPage } from '../pages/auth/RegisterPage';
-import { DashboardPage } from '../pages/dashboard/DashboardPage';
-import { ProtectedRoute } from './ProtectedRoute';
-import { useAuth } from '../contexts/AuthContext';
 
+import { BuildType, OktoProvider } from 'okto-sdk-react';
+
+const OKTO_CLIENT_API_KEY = 'd6994eeb-3acb-4940-80ae-6c5534100908';
 export const AppRoutes: React.FC = () => {
-  const { isAuthenticated } = useAuth();
-
+  console.log('App component rendered');
+  const [authToken, setAuthToken] = useState<string | null>(null);
+  const handleLogout = () => {
+     console.log("setting auth token to null")
+     setAuthToken(null); // Clear the authToken
+   };
   return (
-    <Routes>
-      {/* Auth Routes */}
-      <Route element={<AuthLayout />}>
-        <Route 
-          path="/login" 
-          element={isAuthenticated ? <Navigate to="/dashboard" replace /> : <LoginPage />} 
-        />
-        <Route 
-          path="/register" 
-          element={isAuthenticated ? <Navigate to="/dashboard" replace /> : <RegisterPage />} 
-        />
-      </Route>
-
-      {/* Protected Routes */}
-      <Route element={<ProtectedRoute />}>
-        <Route element={<DashboardLayout />}>
-          <Route path="/dashboard" element={<DashboardPage />} />
-        </Route>
-      </Route>
-
-      {/* Redirect to login by default */}
-      <Route path="*" element={<Navigate to="/login" replace />} />
-    </Routes>
+    <BrowserRouter>
+      <OktoProvider apiKey={OKTO_CLIENT_API_KEY} buildType={BuildType.SANDBOX}>
+        <Routes>
+          <Route path="/" element={<LoginPage setAuthToken={setAuthToken} authToken={authToken} handleLogout={handleLogout}/>} />
+         
+        </Routes>
+      </OktoProvider>
+    </BrowserRouter>
   );
 };
