@@ -31,7 +31,7 @@ A modern Web3-enabled application built to make easier for web2 developers to de
 
 1. Clone the repository:
     ```bash
-    git clone [your-repository-url]
+    git clone
     cd betax-unfold/web
     ```
 
