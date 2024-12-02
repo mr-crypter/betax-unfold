@@ -5,6 +5,8 @@ import { LoginPage } from './pages/auth/LoginPage';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { DashboardLayout } from './layouts/DashboardLayout';
 import { DashboardPage } from './pages/dashboard/DashboardPage';
+import DeployedContracts from './pages/DeployedContracts';
+import Templates from './pages/Templates';
 
 const OKTO_CLIENT_API_KEY = 'd6994eeb-3acb-4940-80ae-6c5534100908';
 
@@ -50,6 +52,22 @@ const AppRoutes: React.FC = () => {
       >
         <Route index element={<DashboardPage />} />
       </Route>
+
+      <Route
+        path="/dashboard"
+        element={
+          !authToken ? (
+            <Navigate to="/" replace />
+          ) : (
+            <DashboardLayout />
+          )
+        }
+      >
+        <Route index element={<DashboardPage />} />
+        <Route path="deployed-contracts" element={<DeployedContracts />} />
+        <Route path="contracts-templates" element={<Templates />} />
+      </Route>
+
     </Routes>
   );
 };
