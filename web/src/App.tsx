@@ -3,6 +3,8 @@ import { Routes, Route, Navigate, BrowserRouter } from 'react-router-dom';
 import { BuildType, OktoProvider } from 'okto-sdk-react';
 import { LoginPage } from './pages/auth/LoginPage';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { DashboardLayout } from './layouts/DashboardLayout';
+import { DashboardPage } from './pages/dashboard/DashboardPage';
 
 const OKTO_CLIENT_API_KEY = 'd6994eeb-3acb-4940-80ae-6c5534100908';
 
@@ -42,10 +44,12 @@ const AppRoutes: React.FC = () => {
           !authToken ? (
             <Navigate to="/" replace />
           ) : (
-            <div>Dashboard</div> // Replace with actual Dashboard component
+            <DashboardLayout />
           )
         }
-      />
+      >
+        <Route index element={<DashboardPage />} />
+      </Route>
     </Routes>
   );
 };

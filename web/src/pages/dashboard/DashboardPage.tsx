@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 
 export const DashboardPage: React.FC = () => {
   const { walletAddress } = useAuth();

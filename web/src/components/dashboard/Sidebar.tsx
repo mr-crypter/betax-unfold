@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Bot, Settings, ChevronRight, LogOut, Menu, X } from 'lucide-react';
 import { cn } from '../../libs/utils';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 
 export const Sidebar: React.FC = () => {
   const { logout, walletAddress } = useAuth();
