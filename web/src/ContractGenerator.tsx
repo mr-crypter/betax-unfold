@@ -1541,83 +1541,135 @@ contract ${name} is ERC1155, Ownable {
   };
 
   return (
-    <div className="p-4 max-w-md mx-auto">
-      <h2 className="text-2xl font-bold mb-4">Generate Contract</h2>
-      <div className="space-y-3">
-        <select
-          className="w-full p-2 border rounded"
-          value={contractType}
-          onChange={(e) => setContractType(e.target.value)}
-        >
-          <option value="ERC20">ERC20</option>
-          <option value="ERC721">ERC721</option>
-          <option value="ERC1155">ERC1155</option>
-        </select>
+    <div className="p-8 max-w-7xl mx-auto bg-gray-900">
+      <div className="flex gap-8">
+        {/* Form Section */}
+        <div className="w-1/2 space-y-6">
+          <div className="bg-gray-800 p-8 rounded-xl shadow-xl border border-gray-700">
+            <h2 className="text-2xl font-semibold text-white mb-6">Create New Contract</h2>
+            
+            <div className="flex flex-wrap gap-3 mb-6">
+              <button
+                className={`px-6 py-2.5 rounded-lg font-medium transition-all duration-200 ${
+                  contractType === "ERC20" 
+                    ? "bg-purple-600 text-white shadow-lg shadow-purple-900"
+                    : "bg-gray-700 text-gray-300 hover:bg-gray-600 border border-gray-600"
+                }`}
+                onClick={() => setContractType("ERC20")}
+              >
+                ERC20 Token
+              </button>
+              <button 
+                className={`px-6 py-2.5 rounded-lg font-medium transition-all duration-200 ${
+                  contractType === "ERC721"
+                    ? "bg-purple-600 text-white shadow-lg shadow-purple-900" 
+                    : "bg-gray-700 text-gray-300 hover:bg-gray-600 border border-gray-600"
+                }`}
+                onClick={() => setContractType("ERC721")}
+              >
+                ERC721 NFT
+              </button>
+              <button
+                className={`px-6 py-2.5 rounded-lg font-medium transition-all duration-200 ${
+                  contractType === "ERC1155"
+                    ? "bg-purple-600 text-white shadow-lg shadow-purple-900"
+                    : "bg-gray-700 text-gray-300 hover:bg-gray-600 border border-gray-600"
+                }`}
+                onClick={() => setContractType("ERC1155")}
+              >
+                ERC1155 Multi-Token
+              </button>
+            </div>
 
-        <input
-          className="w-full p-2 border rounded"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-1">Contract Name</label>
+                <input
+                  className="w-full p-3 border border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 bg-gray-700 text-white"
+                  placeholder="Enter contract name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
 
-        <input
-          className="w-full p-2 border rounded"
-          placeholder="Symbol"
-          value={symbol}
-          onChange={(e) => setSymbol(e.target.value)}
-        />
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-1">Token Symbol</label>
+                <input
+                  className="w-full p-3 border border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 bg-gray-700 text-white"
+                  placeholder="Enter token symbol"
+                  value={symbol}
+                  onChange={(e) => setSymbol(e.target.value)}
+                />
+              </div>
 
-        {contractType === "ERC20" && (
-          <>
-            <input
-              className="w-full p-2 border rounded"
-              placeholder="Initial Supply"
-              value={initialSupply}
-              onChange={(e) => setInitialSupply(e.target.value)}
-            />
-            <input
-              className="w-full p-2 border rounded"
-              placeholder="Decimals"
-              value={decimals}
-              onChange={(e) => setDecimals(e.target.value)}
-            />
-          </>
-        )}
+              {contractType === "ERC20" && (
+                <>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-1">Initial Supply</label>
+                    <input
+                      className="w-full p-3 border border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 bg-gray-700 text-white"
+                      placeholder="Enter initial supply"
+                      value={initialSupply}
+                      onChange={(e) => setInitialSupply(e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-1">Decimals</label>
+                    <input
+                      className="w-full p-3 border border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 bg-gray-700 text-white"
+                      placeholder="Enter decimals"
+                      value={decimals}
+                      onChange={(e) => setDecimals(e.target.value)}
+                    />
+                  </div>
+                </>
+              )}
 
-        <button
-          className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
-          onClick={generateContract}
-        >
-          Generate Contract
-        </button>
-
-        {generatedContract && (
-          <div>
-            <h3 className="text-xl font-semibold mt-4 mb-2">
-              Generated Contract:
-            </h3>
-            <textarea
-              className="w-full p-2 border rounded"
-              rows="20"
-              value={generatedContract}
-              readOnly
-            ></textarea>
-            <button
-              className="w-full bg-green-500 text-white p-2 rounded mt-2 hover:bg-green-600"
-              onClick={deployContract}
-            >
-              Deploy Contract
-            </button>
+              <button
+                className="mt-6 w-full bg-purple-600 text-white p-4 rounded-lg font-medium hover:bg-purple-700 transition-all duration-200 focus:ring-4 focus:ring-purple-900 shadow-lg shadow-purple-900/50"
+                onClick={generateContract}
+              >
+                Generate Contract
+              </button>
+            </div>
           </div>
-        )}
 
-        {deployedAddress && (
-          <div className="mt-4">
-            <h3 className="text-xl font-semibold">
-              Deployed Contract Address:
-            </h3>
-            <p className="p-2 bg-gray-100 rounded">{deployedAddress}</p>
+          {deployedAddress && (
+            <div className="bg-gray-800 p-6 rounded-xl shadow-xl border border-gray-700">
+              <h3 className="text-xl font-semibold text-white mb-4">
+                Deployed Contract Address
+              </h3>
+              <div className="p-4 bg-gray-700 rounded-lg border border-gray-600 font-mono text-sm break-all text-gray-300">
+                {deployedAddress}
+              </div>
+              <p className="mt-3 text-sm text-gray-400">
+                Your contract has been successfully deployed to the blockchain network
+              </p>
+            </div>
+          )}
+        </div>
+
+        {/* Generated Contract Section */}
+        {generatedContract && (
+          <div className="w-full bg-gray-800 p-6 rounded-lg shadow-xl border border-gray-700">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-xl font-semibold text-white">
+                Generated Contract Code
+              </h3>
+              <button
+                className="bg-emerald-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-emerald-700 transition-colors focus:ring-4 focus:ring-emerald-900"
+                onClick={deployContract}
+              >
+                Deploy Contract
+              </button>
+            </div>
+            <div className="relative">
+              <textarea
+                className="w-full h-[600px] p-4 border border-gray-600 rounded-lg font-mono text-sm focus:ring-2 focus:ring-purple-500 focus:border-purple-500 bg-gray-700 text-gray-300"
+                value={generatedContract}
+                readOnly
+              ></textarea>
+            </div>
           </div>
         )}
       </div>
